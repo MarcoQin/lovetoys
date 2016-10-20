@@ -4,7 +4,7 @@ local folderOfThisFile = (...):match("(.-)[^%/%.]+$")
 local lovetoys = require(folderOfThisFile .. 'namespace')
 local System = lovetoys.class("System")
 
-function System:initialize()
+function System:init()
     -- Liste aller Entities, die die RequiredComponents dieses Systems haben
     self.targets = {}
     self.active = true

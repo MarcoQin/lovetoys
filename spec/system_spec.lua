@@ -1,5 +1,5 @@
 local lovetoys = require('lovetoys')
-lovetoys.initialize({ globals = true })
+lovetoys.init({ globals = true })
 
 describe('System', function()
     local MultiSystem, RequireSystem

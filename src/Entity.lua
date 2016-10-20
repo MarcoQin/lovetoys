@@ -4,7 +4,7 @@ local folderOfThisFile = (...):match("(.-)[^%/%.]+$")
 local lovetoys = require(folderOfThisFile .. 'namespace')
 local Entity = lovetoys.class("Entity")
 
-function Entity:initialize(parent, name)
+function Entity:init(parent, name)
     self.components = {}
     self.eventManager = nil
     self.alive = false

@@ -4,7 +4,7 @@ local folderOfThisFile = (...):match("(.-)[^%/%.]+$")
 local lovetoys = require(folderOfThisFile .. 'namespace')
 local EventManager = lovetoys.class("EventManager")
 
-function EventManager:initialize()
+function EventManager:init()
     self.eventListeners = {}
 end
 

@@ -1,5 +1,5 @@
 local lovetoys = require('lovetoys')
-lovetoys.initialize({ globals = true, debugging = true })
+lovetoys.init({ globals = true, debugging = true })
 
 describe('Entity', function()
     local TestComponent, TestComponent1, TestComponent2, TestComponent3

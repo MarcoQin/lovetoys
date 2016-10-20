@@ -11,7 +11,7 @@ folderOfThisFile = table.concat(path, ".")
 
 local ComponentRemoved = require(folderOfThisFile .. '.namespace').class("ComponentRemoved")
 
-function ComponentRemoved:initialize(entity, component)
+function ComponentRemoved:init(entity, component)
     self.entity = entity
     self.component = component
 end

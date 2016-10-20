@@ -1,5 +1,5 @@
 local lovetoys = require('lovetoys')
-lovetoys.initialize({ globals = true })
+lovetoys.init({ globals = true })
 
 describe('Engine', function()
     local UpdateSystem, DrawSystem, MultiSystem, Component1, Component2
@@ -9,8 +9,8 @@ describe('Engine', function()
     setup(function()
         -- Creates a Update System
         UpdateSystem = lovetoys.class('UpdateSystem', System)
-        function UpdateSystem:initialize()
-            System.initialize(self)
+        function UpdateSystem:init()
+            System.init(self)
             self.entitiesAdded = 0
         end
         function UpdateSystem:requires()

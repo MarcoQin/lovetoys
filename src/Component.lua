@@ -13,7 +13,7 @@ function Component.create(name, fields, defaults)
 
     if fields then
         defaults = defaults or {}
-        component.initialize = function(self, ...)
+        component.init = function(self, ...)
             local args = {...}
             for index, field in ipairs(fields) do
                 self[field] = args[index] or defaults[field]

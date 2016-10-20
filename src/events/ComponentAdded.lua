@@ -11,7 +11,7 @@ folderOfThisFile = table.concat(path, ".")
 
 local ComponentAdded = require(folderOfThisFile .. '.namespace').class("ComponentAdded")
 
-function ComponentAdded:initialize(entity, component)
+function ComponentAdded:init(entity, component)
     self.entity = entity
     self.component = component
 end
