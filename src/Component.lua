@@ -11,6 +11,19 @@ Component.all = {}
 function Component.create(name, fields, defaults)
     local component = require(folderOfThisFile .. 'namespace').class(name)
 
+    component.setEntity = function(self, entity)
+        if not entity then return end
+        if self.entity then
+            lovetoys.debug("Cannot add one Component instance to diffrent Entities!!")
+        else
+            self.entity = entity
+        end
+    end
+
+    component.unsetEntity = function(self)
+        self.entity = nil
+    end
+
     if fields then
         defaults = defaults or {}
         component.init = function(self, ...)

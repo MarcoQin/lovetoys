@@ -25,6 +25,7 @@ function Entity:add(component)
         lovetoys.debug("Entity: Trying to add Component '" .. name .. "', but it's already existing. Please use Entity:set to overwrite a component in an entity.")
     else
         self.components[name] = component
+        component:setEntity(self)
         if self.eventManager then
             self.eventManager:fireEvent(ComponentAdded(self, name))
         end
@@ -37,6 +38,7 @@ function Entity:set(component)
         self:add(component)
     else
         self.components[name] = component
+        component:setEntity(self)
     end
 end
 
@@ -49,6 +51,7 @@ end
 -- Removes a component from the entity.
 function Entity:remove(name)
     if self.components[name] then
+        self.components[name]:unsetEntity()
         self.components[name] = nil
     else
         lovetoys.debug("Entity: Trying to remove unexisting component " .. name .. " from Entity. Please fix this")
