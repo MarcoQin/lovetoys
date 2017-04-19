@@ -87,4 +87,53 @@ function Entity:getComponents()
     return self.components
 end
 
+function Entity:pushEvent(event, data)
+    if self.sg then
+        if self.sg:isListeningForEvent(event) then
+            if SGManager:onPushEvent(self.sg) then
+                self.sg:pushEvent(event, data)
+            end
+        end
+    end
+end
+
+local StateGraphs = {}
+
+local function LoadStateGraph(name)
+
+    if StateGraphs[name] == nil then
+        local fn = require("stategraphs/"..name)
+        assert(fn, "could not load stategraph "..name)
+        StateGraphs[name] = fn
+    end
+
+    local sg = StateGraphs[name]
+
+    assert(sg, "stategraph "..name.." is not valid")
+    return sg
+end
+
+function Entity:setStateGraph(name)
+    if self.sg then
+        SGManager:removeInstance(self.sg)
+    end
+    local sg = LoadStateGraph(name)
+    assert(sg)
+    if sg then
+        self.sg = StateGraphInstance(sg)
+        self:add(self.sg)
+        SGManager:addInstance(self.sg)
+        self.sg:goToState(self.sg.sg.defaultstate)
+        return self.sg
+    end
+end
+
+
+function Entity:clearStateGraph()
+    if self.sg then
+        SGManager:removeInstance(self.sg)
+        self.sg = nil
+    end
+end
+
 return Entity

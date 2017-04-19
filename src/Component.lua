@@ -18,10 +18,16 @@ function Component.create(name, fields, defaults)
         else
             self.entity = entity
         end
+        if self.onAddEntity then
+            self:onAddEntity()
+        end
     end
 
     component.unsetEntity = function(self)
         self.entity = nil
+        if self.onRemoveEntity then
+            self:onRemoveEntity()
+        end
     end
 
     if fields then
