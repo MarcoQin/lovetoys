@@ -24,6 +24,7 @@ end
 function Engine:addEntity(entity)
     -- Setting engine eventManager as eventManager for entity
     entity.eventManager = self.eventManager
+    entity.engine = self
     -- Getting the next free ID or insert into table
     local newId = #self.entities + 1
     entity.id = newId
@@ -51,6 +52,9 @@ function Engine:addEntity(entity)
 end
 
 function Engine:removeEntity(entity, removeChildren, newParent)
+    if entity.onRemovedFromEngine then
+        entity:onRemovedFromEngine()
+    end
     if self.entities[entity.id] then
         -- Removing the Entity from all Systems and engine
         for _, component in pairs(entity.components) do
@@ -166,6 +170,7 @@ end
 
 function Engine:registerSystem(system)
     local name = system.class.name
+    system.engine = self
     self.systemRegistry[name] = system
     -- case: system:requires() returns a table of strings
     if system:requires()[1] and type(system:requires()[1]) == "string" then

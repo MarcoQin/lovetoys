@@ -31,8 +31,10 @@ function System:removeEntity(entity, component)
     -- Requirements. Otherwise we remove the Entity from each category.
     local firstElement = lovetoys.util.firstElement(self.targets)
     if firstElement then
-        if firstElement.class and firstElement.class.name == 'Entity' then
+        if firstElement.class and firstElement:isInstanceOf(lovetoys.Entity) then
             self.targets[entity.id] = nil
+        -- if firstElement.class and firstElement.class.name == 'Entity' then
+            -- self.targets[entity.id] = nil
         else
             -- Removing entities from their respective category target list.
             for index, _ in pairs(self.targets) do

@@ -136,4 +136,8 @@ function Entity:clearStateGraph()
     end
 end
 
+function Entity:onRemovedFromEngine()
+    self:clearStateGraph()
+end
+
 return Entity
