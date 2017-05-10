@@ -17,6 +17,14 @@ function Entity:init(parent, name)
     self.children = {}
 end
 
+function Entity:addTag(tag)
+    self.tag = tag
+end
+
+function Entity:getTag()
+    return self.tag
+end
+
 -- Sets the entities component of this type to the given component.
 -- An entity can only have one Component of each type.
 function Entity:add(component)
