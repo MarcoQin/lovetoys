@@ -49,6 +49,9 @@ function Engine:addEntity(entity)
             end
         end
     end
+    if entity.onAddedToEngine then
+        entity:onAddedToEngine()
+    end
 end
 
 function Engine:removeEntity(entity, removeChildren, newParent)

@@ -148,4 +148,7 @@ function Entity:onRemovedFromEngine()
     self:clearStateGraph()
 end
 
+function Entity:onAddedToEngine()
+end
+
 return Entity
