@@ -15,15 +15,24 @@ function Entity:init(parent, name)
     end
     self.name = name
     self.children = {}
+    self.tags = {}
 end
 
 function Entity:addTag(tag)
-    self.tag = tag
+    self.tags[tag] = true
 end
 
-function Entity:getTag()
-    return self.tag
+function Entity:removeTag(tag)
+    self.tags[tag] = nil
 end
+
+function Entity:hasTag(tag)
+    if self.tags[tag] then
+        return true
+    end
+    return false
+end
+
 
 -- Sets the entities component of this type to the given component.
 -- An entity can only have one Component of each type.
