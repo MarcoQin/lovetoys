@@ -181,7 +181,7 @@ end
 function Entity:onAddedToEngine()
 end
 
-function Entity:remove()
+function Entity:removeSelf()
     self.engine:removeEntity(self, true)
 end
 
