@@ -3,12 +3,14 @@ local folderOfThisFile = (...):match("(.-)[^%/%.]+$")
 
 local lovetoys = require(folderOfThisFile .. 'namespace')
 ---@class Entity
+---@field public id number
 local Entity = lovetoys.class("Entity")
 
 function Entity:init(parent, name)
+    ---@type table<string, Component>
     self.components = {}
     self.eventManager = nil
-    self.alive = false
+    self.alive = true
     if parent then
         self:setParent(parent)
     else
@@ -93,6 +95,14 @@ end
 
 function Entity:registerAsChild()
     if self.id then self.parent.children[self.id] = self end
+end
+
+function Entity:AddChild(inst)
+    self.children[inst.id] = inst
+end
+
+function Entity:RemoveChild(inst)
+    self.children[inst.id] = nil
 end
 
 function Entity:get(name)
@@ -284,6 +294,10 @@ function Entity:removeAllEventCallbacks()
         end
         self.event_listeners = nil
     end
+end
+
+function Entity.__eq(self, other)
+    return self.id == other.id
 end
 
 return Entity

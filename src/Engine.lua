@@ -7,10 +7,12 @@ local Engine = lovetoys.class("Engine")
 
 function Engine:init()
     self.entities = {}
+    self.cur_entity_id = 300
     self.rootEntity = lovetoys.Entity()
     self.singleRequirements = {}
     self.allRequirements = {}
     self.entityLists = {}
+    ---@type EventManager
     self.eventManager = lovetoys.EventManager()
 
     self.systems = {}
@@ -27,8 +29,16 @@ function Engine:addEntity(entity)
     entity.eventManager = self.eventManager
     entity.engine = self
     -- Getting the next free ID or insert into table
-    local newId = #self.entities + 1
-    entity.id = newId
+    if entity.id == nil then
+        local newId = self.cur_entity_id
+        self.cur_entity_id = self.cur_entity_id + 1
+        entity.id = newId
+    else
+        if entity.id > self.cur_entity_id then
+            self.cur_entity_id = entity.id
+        end
+    end
+
     self.entities[entity.id] = entity
 
     -- If a rootEntity entity is defined and the entity doesn't have a parent yet, the rootEntity entity becomes the entity's parent
