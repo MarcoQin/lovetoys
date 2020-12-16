@@ -49,7 +49,7 @@ function Entity:add(component)
         self.components[name] = component
         component:setEntity(self)
         if self.eventManager then
-            self.eventManager:fireEvent(ComponentAdded(self, name))
+            self.eventManager:fireEvent(lovetoys.ComponentAdded(self, name))
         end
     end
 end
