@@ -232,6 +232,17 @@ function Entity:ListenForEvent(event, fn, source)
 
 end
 
+local function RemoveByValue(t, value)
+    if t then
+        for i,v in ipairs(t) do
+            while v == value do
+                table.remove(t, i)
+                v = t[i]
+            end
+        end
+    end
+end
+
 local function RemoveListener(t, event, inst, fn)
     if t then
         local listeners = t[event]
