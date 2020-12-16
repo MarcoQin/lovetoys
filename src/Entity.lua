@@ -79,7 +79,7 @@ function Entity:remove(name)
         lovetoys.debug("Entity: Trying to remove unexisting component " .. name .. " from Entity. Please fix this")
     end
     if self.eventManager then
-        self.eventManager:fireEvent(ComponentRemoved(self, name))
+        self.eventManager:fireEvent(lovetoys.ComponentRemoved(self, name))
     end
 end
 
