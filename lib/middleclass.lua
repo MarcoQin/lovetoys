@@ -1,10 +1,12 @@
 local middleclass = {
-  _VERSION     = 'middleclass v4.1.0',
+  _VERSION     = 'middleclass v4.1.1',
   _DESCRIPTION = 'Object Orientation for Lua',
   _URL         = 'https://github.com/kikito/middleclass',
   _LICENSE     = [[
     MIT LICENSE
+
     Copyright (c) 2011 Enrique García Cota
+
     Permission is hereby granted, free of charge, to any person obtaining a
     copy of this software and associated documentation files (the
     "Software"), to deal in the Software without restriction, including
@@ -12,8 +14,10 @@ local middleclass = {
     distribute, sublicense, and/or sell copies of the Software, and to
     permit persons to whom the Software is furnished to do so, subject to
     the following conditions:
+
     The above copyright notice and this permission notice shall be included
     in all copies or substantial portions of the Software.
+
     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
     OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
     MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
@@ -75,7 +79,15 @@ local function _createClass(name, super)
                    subclasses = setmetatable({}, {__mode='k'})  }
 
   if super then
-    setmetatable(aClass.static, { __index = function(_,k) return rawget(dict,k) or super.static[k] end })
+    setmetatable(aClass.static, {
+      __index = function(_,k)
+        local result = rawget(dict,k)
+        if result == nil then
+          return super.static[k]
+        end
+        return result
+      end
+    })
   else
     setmetatable(aClass.static, { __index = function(_,k) return rawget(dict,k) end })
   end
@@ -107,7 +119,12 @@ local DefaultMixin = {
   init   = function(self, ...) end,
 
   isInstanceOf = function(self, aClass)
-    return type(aClass) == 'table' and (aClass == self.class or self.class:isSubclassOf(aClass))
+    return type(aClass) == 'table'
+       and type(self) == 'table'
+       and (self.class == aClass
+            or type(self.class) == 'table'
+            and type(self.class.isSubclassOf) == 'function'
+            and self.class:isSubclassOf(aClass))
   end,
 
   static = {
