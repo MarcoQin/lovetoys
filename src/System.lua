@@ -57,10 +57,13 @@ function System:componentRemoved(entity, component)
         else
             -- Removing entities from their respective category target list.
             for index, _ in pairs(self.targets) do
-                for _, req in pairs(self:requires()[index]) do
-                    if req == component then
-                        self.targets[index][entity.id] = nil
-                        break
+                local requirements = self:requires()[index]
+                if requirements ~= nil then
+                    for _, req in pairs(requirements) do
+                        if req == component then
+                            self.targets[index][entity.id] = nil
+                            break
+                        end
                     end
                 end
             end
