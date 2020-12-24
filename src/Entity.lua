@@ -186,6 +186,16 @@ end
 function Entity:onRemovedFromEngine()
     self:clearStateGraph()
     self:removeAllEventCallbacks()
+    --for name, c in pairs(self.components) do
+    --    self:remove(name)
+    --end
+    --self.engine = nil
+    --self.master = nil
+    --self.name = nil
+    --self.eventManager = nil
+    --self.children = {}
+    --self.tags = {}
+    --self.parent = nil
 end
 
 function Entity:onAddedToEngine()

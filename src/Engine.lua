@@ -66,9 +66,6 @@ function Engine:addEntity(entity)
 end
 
 function Engine:removeEntity(entity, removeChildren, newParent)
-    if entity.onRemovedFromEngine then
-        entity:onRemovedFromEngine()
-    end
     if self.entities[entity.id] then
         -- Removing the Entity from all Systems and engine
         for _, component in pairs(entity.components) do
@@ -120,6 +117,9 @@ function Engine:removeEntity(entity, removeChildren, newParent)
         for index, component in pairs(entity.components) do
             lovetoys.debug(index, component)
         end
+    end
+    if entity.onRemovedFromEngine then
+        entity:onRemovedFromEngine()
     end
 end
 
